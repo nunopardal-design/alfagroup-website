@@ -62,8 +62,10 @@ async function contact(request, env) {
   const company = clean(data.get('company'), 160);
   const email = clean(data.get('email'), 200);
   const wechat = clean(data.get('wechat'), 80);
+  const whatsapp = clean(data.get('whatsapp'), 32);
   const message = clean(data.get('message'), 4000, true);
-  if ([name, company, email, wechat, message].some(v => v === null)) return reply(false, 422);
+  if ([name, company, email, wechat, whatsapp, message].some(v => v === null)) return reply(false, 422);
+  if (whatsapp && !/^\+\d{1,4} \d{5,15}$/.test(whatsapp)) return reply(false, 422);
   if (!name || !EMAIL_RE.test(email) || !message) return reply(false, 422);
 
   if (env.CONTACT_LIMIT) {
@@ -83,6 +85,7 @@ async function contact(request, env) {
     'Company: ' + (company || 'Not provided'),
     'Email: ' + email,
     'WeChat ID: ' + (wechat || 'Not provided'),
+    'WhatsApp: ' + (whatsapp || 'Not provided'),
     'Sent: ' + new Date().toISOString(), '', 'Message:', message,
   ].join('\n');
 
