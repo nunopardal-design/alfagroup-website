@@ -74,10 +74,16 @@ async function contact(request, env) {
     if (!result.success) return reply(false, 429);
   }
 
-  const to = String(env.TO_EMAIL || '').trim();
+  // TO_EMAIL is configured privately in Cloudflare; multiple verified
+  // destinations may be separated by commas, without publishing addresses.
+  const recipients = String(env.TO_EMAIL || '')
+    .split(',').map(address => address.trim()).filter(Boolean);
   const from = String(env.FROM_EMAIL || '').trim();
-  if (!env.EMAIL || !EMAIL_RE.test(to) || !EMAIL_RE.test(from) ||
-      !from.toLowerCase().endsWith('@alfagroup.pt')) return reply(false, 503);
+  if (!env.EMAIL || recipients.length < 1 || recipients.length > 10 ||
+      !recipients.every(address => EMAIL_RE.test(address)) ||
+      !EMAIL_RE.test(from) || !from.toLowerCase().endsWith('@alfagroup.pt')) {
+    return reply(false, 503);
+  }
 
   const body = [
     'New message from the Alfa Group contact form', '',
@@ -91,7 +97,7 @@ async function contact(request, env) {
 
   try {
     await env.EMAIL.send({
-      to, from, replyTo: email,
+      to: recipients.length === 1 ? recipients[0] : recipients, from, replyTo: email,
       subject: 'ALFAGROUP | FORMULÁRIO DE CONTACTO | NOVA MENSAGEM',
       text: body,
     });
