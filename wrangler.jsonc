@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "alfagroup-preview",
+  "main": "./src/index.js",
+  "compatibility_date": "2026-11-18",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/contact",
+      "/contact.php"
+    ]
+  },
+  "send_email": [
+    {
+      "name": "EMAIL"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "CONTACT_LIMIT",
+      "namespace_id": "794531",
+      "simple": {
+        "limit": 5,
+        "period": 60
+      }
+    }
+  ]
+}
