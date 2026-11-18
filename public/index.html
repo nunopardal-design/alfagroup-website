@@ -229,6 +229,21 @@ body.ready .scroll-hint{opacity:1}
 .field input:focus~i,.field textarea:focus~i{transform:scaleX(1)}
 .field.err input,.field.err textarea{border-bottom-color:#d26a5c}
 .field.err label{color:#d26a5c}
+.field.phone{padding-top:18px}
+.field .flabel{position:absolute;left:0;top:4px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:#8c8c8c;transition:color .35s}
+.field.phone:focus-within .flabel{color:var(--gold)}
+.prow{display:flex;gap:14px;align-items:flex-end}
+.prow select,.prow input{background:transparent;border:0;border-bottom:1px solid #3a3a36;color:var(--white);font:400 17px/1.5 'Poppins',sans-serif;padding:10px 0 12px;outline:none;border-radius:0}
+.prow select{flex:0 0 112px;width:112px;appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:22px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23BA984A' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center;background-size:11px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+.prow select:invalid,.prow select.empty{color:#8c8c8c}
+.prow select option{background:#0F1011;color:#fff}
+.prow #f-cc-other{flex:0 0 64px;width:64px}
+.prow #f-wa{flex:1;min-width:0}
+.prow input::placeholder{color:#8c8c8c;opacity:1}
+.field.phone i{transform:scaleX(0)}
+.field.phone:focus-within i{transform:scaleX(1)}
+.field.phone.err .prow select,.field.phone.err .prow input{border-bottom-color:#d26a5c}
+.field.phone.err .flabel{color:#d26a5c}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .cfoot{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:40px;flex-wrap:wrap}
 .cstatus{font-size:14px;color:#d26a5c;min-height:1.4em}
@@ -427,8 +442,18 @@ footer a:hover{color:var(--gold)}
       <div class="cgrid">
         <div class="field"><input id="f-name" name="name" type="text" autocomplete="name" placeholder=" " required maxlength="120"><label for="f-name">Name</label><i></i></div>
         <div class="field"><input id="f-company" name="company" type="text" autocomplete="organization" placeholder=" " maxlength="160"><label for="f-company">Company</label><i></i></div>
-        <div class="field"><input id="f-email" name="email" type="email" autocomplete="email" placeholder=" " required maxlength="200"><label for="f-email">Email</label><i></i></div>
+        <div class="field full"><input id="f-email" name="email" type="email" autocomplete="email" placeholder=" " required maxlength="200"><label for="f-email">Email</label><i></i></div>
         <div class="field"><input id="f-wechat" name="wechat" type="text" placeholder=" " maxlength="80"><label for="f-wechat">WeChat ID (optional)</label><i></i></div>
+        <div class="field phone">
+          <span class="flabel">WhatsApp number (optional)</span>
+          <div class="prow">
+            <select id="f-cc" aria-label="Country code"><option value="" selected>Code</option><option value="+86">+86 China</option><option value="+852">+852 Hong Kong (China)</option><option value="+853">+853 Macau (China)</option><option value="+351">+351 Portugal</option><option disabled>──────────</option><option value="+244">+244 Angola</option><option value="+54">+54 Argentina</option><option value="+61">+61 Australia</option><option value="+43">+43 Austria</option><option value="+32">+32 Belgium</option><option value="+55">+55 Brazil</option><option value="+1">+1 Canada</option><option value="+238">+238 Cape Verde</option><option value="+56">+56 Chile</option><option value="+57">+57 Colombia</option><option value="+45">+45 Denmark</option><option value="+20">+20 Egypt</option><option value="+358">+358 Finland</option><option value="+33">+33 France</option><option value="+49">+49 Germany</option><option value="+30">+30 Greece</option><option value="+245">+245 Guinea Bissau</option><option value="+91">+91 India</option><option value="+62">+62 Indonesia</option><option value="+353">+353 Ireland</option><option value="+972">+972 Israel</option><option value="+39">+39 Italy</option><option value="+81">+81 Japan</option><option value="+352">+352 Luxembourg</option><option value="+60">+60 Malaysia</option><option value="+52">+52 Mexico</option><option value="+212">+212 Morocco</option><option value="+258">+258 Mozambique</option><option value="+31">+31 Netherlands</option><option value="+64">+64 New Zealand</option><option value="+234">+234 Nigeria</option><option value="+47">+47 Norway</option><option value="+92">+92 Pakistan</option><option value="+63">+63 Philippines</option><option value="+48">+48 Poland</option><option value="+974">+974 Qatar</option><option value="+7">+7 Russia</option><option value="+239">+239 Sao Tome and Principe</option><option value="+966">+966 Saudi Arabia</option><option value="+65">+65 Singapore</option><option value="+27">+27 South Africa</option><option value="+82">+82 South Korea</option><option value="+34">+34 Spain</option><option value="+46">+46 Sweden</option><option value="+41">+41 Switzerland</option><option value="+66">+66 Thailand</option><option value="+670">+670 Timor Leste</option><option value="+90">+90 Turkey</option><option value="+971">+971 United Arab Emirates</option><option value="+44">+44 United Kingdom</option><option value="+1">+1 United States</option><option value="+84">+84 Vietnam</option><option disabled>──────────</option><option value="other">Other</option></select>
+            <input id="f-cc-other" type="text" inputmode="tel" placeholder="+" maxlength="5" aria-label="Country code" hidden>
+            <input id="f-wa" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Number" maxlength="20" aria-label="WhatsApp number">
+          </div>
+          <input type="hidden" name="whatsapp" id="f-whatsapp">
+          <i></i>
+        </div>
         <div class="field full"><textarea id="f-msg" name="message" rows="4" placeholder=" " required maxlength="4000"></textarea><label for="f-msg">Message</label><i></i></div>
       </div>
       <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
@@ -548,6 +573,9 @@ if(form){
   $('#f-t').value=Date.now();
   const st=$('.cstatus',form), btn=$('button',form);
   $$('input,textarea',form).forEach(el=>el.addEventListener('input',()=>{el.parentNode.classList.remove('err'); if(!$$('.field.err',form).length) st.textContent='';}));
+  const ccSel=$('#f-cc'), ccOther=$('#f-cc-other');
+  const ccState=()=>{ccSel.classList.toggle('empty',!ccSel.value); const o=ccSel.value==='other'; ccOther.hidden=!o; if(o) ccOther.focus();};
+  ccSel.addEventListener('change',()=>{ccState(); ccSel.closest('.field').classList.remove('err'); st.textContent='';}); ccState();
   const msg={required:'Please fill in your name, email and message.',email:'Please enter a valid email address.',fail:'Something went wrong. Please try again in a moment.'};
   form.addEventListener('submit',async e=>{
     e.preventDefault(); st.textContent='';
@@ -556,6 +584,16 @@ if(form){
     ['f-name','f-email','f-msg'].forEach(id=>{const el=$('#'+id); if(!el.value.trim()){el.parentNode.classList.add('err');bad=true;}});
     if(bad){st.textContent=msg.required;return;}
     const em=$('#f-email'); if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())){em.parentNode.classList.add('err');st.textContent=msg.email;return;}
+    const cc=$('#f-cc'), cco=$('#f-cc-other'), wa=$('#f-wa'), ph=wa.closest('.field');
+    const num=wa.value.replace(/[^\d]/g,'');
+    let code=cc.value==='other'?cco.value.trim():cc.value;
+    if(code && !code.startsWith('+')) code='+'+code;
+    $('#f-whatsapp').value='';
+    if(num){
+      if(!/^\+\d{1,4}$/.test(code)){ph.classList.add('err');st.textContent='Please choose a country code for your WhatsApp number.';return;}
+      if(num.length<5||num.length>15){ph.classList.add('err');st.textContent='Please enter a valid WhatsApp number.';return;}
+      $('#f-whatsapp').value=code+' '+num;
+    }
     form.classList.add('sending'); btn.disabled=true;
     try{
       const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
