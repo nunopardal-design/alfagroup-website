@@ -92,7 +92,7 @@ async function contact(request, env) {
   try {
     await env.EMAIL.send({
       to, from, replyTo: email,
-      subject: 'Alfa Group website contact',
+      subject: 'ALFAGROUP | FORMULÁRIO DE CONTACTO | NOVA MENSAGEM',
       text: body,
     });
     return reply(true);
