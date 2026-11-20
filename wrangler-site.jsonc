@@ -1,0 +1,8 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "purple-thunder-7d76",
+  "compatibility_date": "2026-11-20",
+  "assets": {
+    "directory": "./public"
+  }
+}
